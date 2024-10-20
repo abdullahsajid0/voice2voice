@@ -6,16 +6,10 @@ from groq import Groq
 import tempfile
 import pydub
 from dotenv import load_dotenv
-from pydub.utils import which
-
 load_dotenv()
-api_keys = st.secrets["api"]  # Securely load API key from Streamlit secrets
-
-# Set the ffmpeg path for pydub
-pydub.AudioSegment.converter = which("ffmpeg")
 
 # Initialize Groq client
-client = Groq(api_key=api_keys)
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 # Function to convert audio file to WAV format
 def convert_audio_to_wav(audio_path):
@@ -85,13 +79,11 @@ if input_option == "Upload Audio File":
         transcribed_text = transcribe_audio(converted_audio_path)
         if transcribed_text:
             st.text("Transcribed Text: " + transcribed_text)
-
-elif input_option == "Use Microphone":
+else:
     st.text("Press the button and speak:")
     if st.button("Start Recording"):
         mic_audio = st.audio("microphone", format="wav")
         st.session_state.mic_audio = mic_audio  # Store mic audio for later use
-        # Here you would process the microphone input and send it for transcription
 
 # Part 2: Get LLM Response
 if st.button("Get LLM Response"):
