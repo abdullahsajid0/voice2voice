@@ -5,9 +5,14 @@ import speech_recognition as sr
 from groq import Groq
 import tempfile
 import pydub
+import imageio_ffmpeg
+
 from dotenv import load_dotenv
 load_dotenv()
 
+# Set FFmpeg path for pydub
+ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
+pydub.AudioSegment.converter = ffmpeg_path
 # Retrieve the API key
 api_key = os.getenv("GROQ_API_KEY")
 
