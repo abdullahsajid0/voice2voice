@@ -4,3 +4,4 @@ speechrecognition
 groq
 pydub
 python-dotenv
+ffmpeg
