@@ -1,10 +1,7 @@
 streamlit
 gtts
-speechrecognition
+SpeechRecognition
 groq
 pydub
-python-dotenv
-ffmpeg-python
-pydub
 imageio[ffmpeg]
-
+python-dotenv
