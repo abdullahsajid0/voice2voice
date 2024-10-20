@@ -6,9 +6,13 @@ from groq import Groq
 import tempfile
 import pydub
 from dotenv import load_dotenv
+from pydub.utils import which
 
 load_dotenv()
 api_keys = st.secrets["api"]  # Securely load API key from Streamlit secrets
+
+# Set the ffmpeg path for pydub
+pydub.AudioSegment.converter = which("ffmpeg")
 
 # Initialize Groq client
 client = Groq(api_key=api_keys)
@@ -77,33 +81,4 @@ if input_option == "Upload Audio File":
             temp_audio_file.close()
         
         # Convert to WAV format if necessary
-        converted_audio_path = convert_audio_to_wav(temp_audio_file.name)
-        transcribed_text = transcribe_audio(converted_audio_path)
-        if transcribed_text:
-            st.text("Transcribed Text: " + transcribed_text)
-
-elif input_option == "Use Microphone":
-    st.text("Press the button and speak:")
-    if st.button("Start Recording"):
-        mic_audio = st.audio("microphone", format="wav")
-        st.session_state.mic_audio = mic_audio  # Store mic audio for later use
-        # Here you would process the microphone input and send it for transcription
-
-# Part 2: Get LLM Response
-if st.button("Get LLM Response"):
-    if 'transcribed_text' in locals() and transcribed_text:
-        response_text = generate_response(transcribed_text)
-        st.session_state.chat_history.append((transcribed_text, response_text))  # Store chat history
-        st.text("LLM Response: " + response_text)
-        
-        # Convert response to speech
-        audio_response_path = text_to_speech(response_text)
-        st.audio(audio_response_path)
-        display_chat()
-    else:
-        st.warning("Please upload an audio file or speak first.")
-
-# Button to end the session
-if st.button("End Session"):
-    st.session_state.clear()
-    st.success("Session ended and chat history cleared.")
+        converted_audio_
