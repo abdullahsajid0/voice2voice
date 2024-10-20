@@ -8,6 +8,9 @@ import pydub
 from dotenv import load_dotenv
 load_dotenv()
 
+# Retrieve the API key
+api_key = os.getenv("GROQ_API_KEY")
+
 # Initialize Groq client
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
