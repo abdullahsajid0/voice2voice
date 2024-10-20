@@ -5,4 +5,6 @@ groq
 pydub
 python-dotenv
 ffmpeg-python
+pydub
+imageio[ffmpeg]
 
