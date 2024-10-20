@@ -6,8 +6,10 @@ from groq import Groq
 import tempfile
 import pydub
 from dotenv import load_dotenv
+
 load_dotenv()
-api_keys=st.secrets["api"]
+api_keys = st.secrets["api"]  # Securely load API key from Streamlit secrets
+
 # Initialize Groq client
 client = Groq(api_key=api_keys)
 
@@ -79,11 +81,13 @@ if input_option == "Upload Audio File":
         transcribed_text = transcribe_audio(converted_audio_path)
         if transcribed_text:
             st.text("Transcribed Text: " + transcribed_text)
-else:
+
+elif input_option == "Use Microphone":
     st.text("Press the button and speak:")
     if st.button("Start Recording"):
         mic_audio = st.audio("microphone", format="wav")
         st.session_state.mic_audio = mic_audio  # Store mic audio for later use
+        # Here you would process the microphone input and send it for transcription
 
 # Part 2: Get LLM Response
 if st.button("Get LLM Response"):
