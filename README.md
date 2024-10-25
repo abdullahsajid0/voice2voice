@@ -68,9 +68,10 @@ python app.py
 whisper==1.0
 groq==1.1
 gtts==2.3.2
-gradio==3.16.0```
-Install these via:
+gradio==3.16.0
 ```
+## Install these via:
+
 ```
 pip install -r requirements.txt
 ```
